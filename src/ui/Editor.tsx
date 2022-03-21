@@ -1,7 +1,8 @@
 import { Textarea } from '@chakra-ui/react';
 import React from 'react';
+import { Document, parseTextToDocument } from '../models';
 
-export const Editor: React.VFC<{ onSave: (value: string) => void }> = ({ onSave }) => {
+export const Editor: React.VFC<{ onSave: (value: Document) => void }> = ({ onSave }) => {
   const [value, setValue] = React.useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -10,7 +11,7 @@ export const Editor: React.VFC<{ onSave: (value: string) => void }> = ({ onSave 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.ctrlKey && e.key === 'Enter') {
       e.preventDefault();
-      onSave(value);
+      onSave(parseTextToDocument(value));
       setValue('');
     }
   };

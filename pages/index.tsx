@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
+import { Document } from '../src/models';
 import { Editor, EditorContainer, Header, MainContainer } from '../src/ui';
 
 const Home: NextPage = () => {
-  const onEditorSave = (text: string) => {
-    alert(text);
+  const onEditorSave = (data: Document) => {
+    console.log('editor', data);
   };
 
   return (

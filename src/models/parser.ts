@@ -1,7 +1,7 @@
 import { parseIndent, threewiseMap, ThreewiseMapProjector, toLines } from './functions';
-import { Node } from './types';
+import { Document, Node } from './types';
 
-export const parseText = (text: string) => {
+export const parseTextToDocument = (text: string): Document => {
   const topLevelAttrs = new Map<string, string | number>();
 
   const parse: ThreewiseMapProjector<string, Node> = ([prev, curr, next], index) => {
@@ -36,12 +36,14 @@ export const parseText = (text: string) => {
   };
 
   const content = threewiseMap(parse, toLines(text));
-
   return {
-    attrs: {
-      ...Object.fromEntries(topLevelAttrs),
-      contentLength: content.length,
+    doc: {
+      type: 'doc',
+      attrs: {
+        ...Object.fromEntries(topLevelAttrs),
+        contentLength: content.length,
+      },
+      content,
     },
-    content,
   };
 };

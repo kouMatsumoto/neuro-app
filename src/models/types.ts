@@ -23,6 +23,4 @@ export interface FragmentNode {
   text?: never;
 }
 
-export type Attributes = {
-  title?: string;
-};
+export type Attributes = Record<string, string | number | boolean | undefined>;
