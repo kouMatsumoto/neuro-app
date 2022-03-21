@@ -20,6 +20,8 @@
     "@types/react": "17.0.41",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.0",
@@ -36,9 +38,38 @@
     "bracketSpacing": true,
     "arrowParens": "always"
   },
+  "eslintConfig": {
+    "extends": [
+      "next/core-web-vitals",
+      "plugin:import/recommended",
+      "plugin:import/typescript",
+      "prettier"
+    ],
+    "rules": {
+      "no-sequences": 0,
+      "import/order": [
+        "error",
+        {
+          "alphabetize": {
+            "order": "asc"
+          },
+          "groups": [
+            "builtin",
+            "external",
+            "parent",
+            "sibling",
+            "index"
+          ]
+        }
+      ]
+    }
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,html,css,scss,json,yml,yaml,md}": [
       "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix --cache"
     ]
   }
 }
