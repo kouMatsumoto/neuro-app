@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Container, Editor, Header } from '../src/ui';
+import { Editor, EditorContainer, Header, MainContainer } from '../src/ui';
 
 const Home: NextPage = () => {
   const onEditorSave = (text: string) => {
@@ -9,10 +9,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Header />
-      <Container>
+      <MainContainer>
         This is Editor
-        <Editor onSave={onEditorSave} />
-      </Container>
+        <EditorContainer>
+          <Editor onSave={onEditorSave} />
+        </EditorContainer>
+      </MainContainer>
     </>
   );
 };
