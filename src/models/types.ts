@@ -11,18 +11,18 @@ export type Node = TextNode | FragmentNode;
 
 export interface TextNode {
   type: string;
-  content: never;
+  attrs: Attributes;
+  content?: never;
   text: string;
-  attrs?: never; // TODO consider integrate https://prosemirror.net/docs/guide/#doc
 }
 
 export interface FragmentNode {
   type: string;
+  attrs: Attributes;
   content: Node[];
   text?: never;
-  attrs?: never; // TODO consider integrate https://prosemirror.net/docs/guide/#doc
 }
 
 export type Attributes = {
-  title: string;
+  title?: string;
 };

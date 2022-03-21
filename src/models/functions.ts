@@ -1,12 +1,14 @@
 type ThreewiseMapValue<T, U> =
   // first
-  | [previousValue: undefined, currentValue: T, nextValue: T | undefined]
+  | [prev: undefined, curr: T, next: T | undefined]
   // mid
-  | [previousValue: U, currentValue: T, nextValue: T | undefined]
+  | [prev: U, curr: T, next: T | undefined]
   // last
-  | [previousValue: U, currentValue: T, nextValue: undefined];
+  | [prev: U, curr: T, next: undefined];
 
-export const threewiseMap = <T, U>(fn: (values: ThreewiseMapValue<T, U>, index: number) => U, array: T[]): U[] => {
+export type ThreewiseMapProjector<T, U> = (values: ThreewiseMapValue<T, U>, index: number) => U;
+
+export const threewiseMap = <T, U>(fn: ThreewiseMapProjector<T, U>, array: T[]): U[] => {
   const mapped: U[] = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -18,4 +20,12 @@ export const threewiseMap = <T, U>(fn: (values: ThreewiseMapValue<T, U>, index: 
   }
 
   return mapped;
+};
+
+export const toLines = (text: string) => text.split('\n');
+
+export const parseIndent = (text: string) => {
+  const [, indents, rest] = text.match(/^(\s*)(\S*.*)/i) ?? [];
+
+  return [indents, rest];
 };
